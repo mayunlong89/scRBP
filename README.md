@@ -103,7 +103,7 @@ We recommend running `getGRN` with 30 random seeds for robustness:
 #Gene mode
 for SEED in $(seq 1 30); do
   scRBP getGRN \
-      --matrix    PBMC_sketch_15K.feather \
+      --matrix    PBMC_sketch_50K.feather \
       --rbp_list  human_RBP_list.txt \
       --output    grn_seed${SEED} \
       --mode      gene \
