@@ -1,5 +1,5 @@
 # scRBP
-![logo](https://github.com/mayunlong89/scRBP/blob/main/Examples/scRBP_logo.png)
+
 <p align="center">
   <img src="https://github.com/mayunlong89/scRBP/blob/main/Examples/scRBP_logo.png" width="300">
 </p>
