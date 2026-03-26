@@ -1,3 +1,8 @@
+<img src="https://github.com/mayunlong89/scRBP/blob/main/Examples/scRBP_logo.png" width="200">
+
+![pypi](https://img.shields.io/badge/pypi-0.1.2-green)
+![python](https://img.shields.io/badge/python-3.9--3.11-blue)
+![license](https://img.shields.io/badge/license-MIT-yellow)
 
 <table>
   <tr>
