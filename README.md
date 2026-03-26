@@ -334,21 +334,3 @@ If you use scRBP in your research, please cite:
 > Ma Y. *et al.* Decoding disease-associated RNA-binding protein-mediated regulatory networks through polygenic enrichment across diverse cellular contexts. (2026)
 
 ---
-
-## scHOB Database
-
-We established [scHOB](https://schob.su-lab.org/) (single-cell Human Organoid Bank), a multi-omic single-cell database consisting of both scRNA-seq and scATAC-seq data on 10 types of widely-adopted human organoids (brain, lung, heart, eye, liver & bile duct, pancreas, intestine, kidney, and skin) spanning more than 1.5 million cells with 67 main cell types in 385 samples across 83 distinct protocols. See [GitHub code](https://github.com/mayunlong89/scHOB) and [scHOB Website](https://schob.su-lab.org/).
-
----
-
-## Related work
-
-1. Ma et al., Integrating polygenic signals and single-cell multiomics identifies cell-type-specific regulomes critical for immune- and aging-related diseases. [Nature Aging](https://www.nature.com/articles/s43587-025-01027-5), 2025. See related [scMORE](https://github.com/mayunlong89/scMORE).
-
-2. Ma et al., Polygenic regression uncovers trait-relevant cellular contexts through pathway activation transformation of single-cell RNA sequencing data. [Cell Genomics](https://www.cell.com/cell-genomics/fulltext/S2666-979X(23)00180-5), 2023. See related [scPagwas](https://github.com/mayunlong89/scPagwas_main).
-
-3. Li, Ma et al. Integrating microbial GWAS and single-cell transcriptomics reveals associations between host cell populations and the gut microbiome. [Nature Microbiology](https://www.nature.com/articles/s41564-025-01978-w), 2025. See related [scBPS](https://zenodo.org/records/15073160).
-
-4. Ma et al., Integration of human organoids single-cell transcriptomic profiles and human genetics repurposes critical cell type-specific drug targets for severe COVID-19. [Cell Proliferation](https://onlinelibrary.wiley.com/doi/full/10.1111/cpr.13558), 2024. See related [GitHub codes](https://github.com/mayunlong89/scHuman_organoids_COVID19).
-
-5. Ma, Y. & Su, J. Linking single-cell multiomics with GWAS to reveal key regulators of disease risk. [Nature Aging](https://doi.org/10.1038/s43587-025-01047-1), 2026.
