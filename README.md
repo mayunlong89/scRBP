@@ -89,17 +89,37 @@ scRBP getSketch \
 We recommend running `getGRN` with 30 random seeds for robustness:
 
 ```bash
+#Gene mode
 for SEED in $(seq 1 30); do
   scRBP getGRN \
       --matrix    PBMC_sketch_15K.feather \
       --rbp_list  human_RBP_list.txt \
-      --output    grn/grn_seed${SEED} \
+      --output    grn_seed${SEED} \
       --mode      gene \
       --method    grnboost2 \
       --n_workers 20 \
+      --correlation True \
       --seed      ${SEED}
 done
 # Output: grn_seed1_scRBP_gene_GRNs.tsv, grn_seed2_scRBP_gene_GRNs.tsv, ...
+
+#Isoform mode
+for SEED in 1 2 3; do
+  scRBP getGRN \
+      --matrix                     PBMC_isoform_sketch.feather \
+      --rbp_list                   human_RBP_list.txt \
+      --output                     iso_grn_seed${SEED} \
+      --mode                       isoform \
+      --isoform_annotation         gencode_v44_isoform_gene_map.tsv \
+      --rbp_agg_method             sum \
+      --remove_self_targets        True \
+      --min_target_cells_expressed 10 \
+      --min_target_mean_expr       0.01 \
+      --method                     grnboost2 \
+      --n_workers                  20 \
+      --seed                       ${SEED}
+done
+
 ```
 
 ### Step 3 — Merge GRN seeds into a consensus network
