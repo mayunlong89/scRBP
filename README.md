@@ -1,10 +1,19 @@
-<img src="https://github.com/mayunlong89/scRBP/blob/main/Examples/scRBP_logo.png" width="200">
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/mayunlong89/scRBP/blob/main/Examples/scRBP_logo.png" width="200">
+    </td>
+    <td>
+      <h1>scRBP</h1>
+      <p>A scalable framework for inferring RNA-binding protein regulons from single-cell data</p>
+    </td>
+  </tr>
+</table>
+
 
 ![pypi](https://img.shields.io/badge/pypi-0.1.2-green)
 ![python](https://img.shields.io/badge/python-3.9--3.11-blue)
 ![license](https://img.shields.io/badge/license-MIT-yellow)
-
-
 
 [scRBP](https://github.com/mayunlong89/scRBP) (single-cell RNA Binding Protein regulon inference) is a computational framework that reconstructs RNA-binding protein (RBP)-mediated regulatory networks (regulons) from single-cell transcriptomes, integrating motif-binding evidence and polygenic signals from genome-wide association studies (GWAS) to prioritize trait-associated RBP programs across diverse cellular contexts.
 
