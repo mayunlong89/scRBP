@@ -115,7 +115,7 @@ done
 # Output: grn_seed1_scRBP_gene_GRNs.tsv, grn_seed2_scRBP_gene_GRNs.tsv, ...
 
 #Isoform mode
-for SEED in 1 2 3; do
+for SEED in $(seq 1 30);  do
   scRBP getGRN \
       --matrix                     PBMC_isoform_sketch.feather \
       --rbp_list                   human_RBP_list.txt \
