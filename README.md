@@ -14,7 +14,7 @@
 
 ## Installation
 
-We recommend installing scRBP via PyPI:
+We recommend installing [scRBP](https://pypi.org/project/scRBP/) via PyPI:
 
 ```bash
 pip install scRBP
