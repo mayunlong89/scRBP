@@ -1,5 +1,5 @@
 # scRBP
-
+![logo](https://github.com/mayunlong89/scRBP/blob/main/Examples/scRBP_logo.png)
 <!-- badges: start -->
 [![PyPI version](https://badge.fury.io/py/scRBP.svg)](https://badge.fury.io/py/scRBP)
 [![Python](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11-blue)](https://www.python.org/)
