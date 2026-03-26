@@ -358,6 +358,10 @@ For more detailed MAGMA usage, see [GWASTutorial](https://cloufield.github.io/GW
 
 ---
 
+## More information
+For more details, please refer to [scRBP protocols](https://mayunlong89.github.io/scRBP.github.io/), or [scRBP Description](https://pypi.org/project/scRBP).
+
+
 ## Citations
 
 If you use scRBP in your research, please cite:
