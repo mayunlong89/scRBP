@@ -1,7 +1,7 @@
 <table>
   <tr>
     <td>
-      <img src="https://github.com/mayunlong89/scRBP/blob/main/Examples/scRBP_logo.png" width="200">
+      <img src="https://github.com/mayunlong89/scRBP/blob/main/Examples/scRBP_logo.png" width="250">
     </td>
     <td>
       <h1>scRBP</h1>
