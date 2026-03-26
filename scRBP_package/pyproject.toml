@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scRBP"
+version = "0.1.2"
+description = "Single-cell RNA Binding Protein Regulon Inference"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+
+authors = [
+    { name = "Yunlong Ma" },
+]
+
+keywords = [
+    "single-cell",
+    "RNA-binding protein",
+    "gene regulatory network",
+    "scRNA-seq",
+    "bioinformatics",
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+
+dependencies = [
+    "numpy",
+    "pandas",
+    "scipy",
+    "scikit-learn",
+    "anndata",
+    "scanpy",
+    "polars",
+    "pyarrow",
+    "loompy",
+    "geosketch",
+    "arboreto",
+    "ctxcore",
+    "pyscenic",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "black",
+    "isort",
+    "flake8",
+]
+
+[project.scripts]
+scRBP = "scrbp.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/mayunlong89/scRBP"
+"Bug Tracker" = "https://github.com/mayunlong89/scRBP/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
