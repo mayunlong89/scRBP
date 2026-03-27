@@ -23,7 +23,7 @@ Reference:
     networks through polygenic enrichment across diverse cellular contexts. (2026)
 """
 
-__version__ = "0.1.2"
+__version__ = "0.1.3.4"
 __author__ = "Yunlong Ma et al., University of Pennsylvania"
 __email__ = ""
 __description__ = "Single-cell RNA Binding Protein regulon inference"

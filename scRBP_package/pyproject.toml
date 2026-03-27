@@ -4,22 +4,22 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "scRBP"
-version = "0.1.2"
+version = "0.1.3.4"
 description = "Single-cell RNA Binding Protein Regulon Inference"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.9"
 
 authors = [
-    { name = "Yunlong Ma" },
+    { name = "Yunlong Ma & Micheal Gandal" },
 ]
 
 keywords = [
-    "single-cell",
+    "Single-cell",
     "RNA-binding protein",
-    "gene regulatory network",
+    "Gene regulatory network",
     "scRNA-seq",
-    "bioinformatics",
+    "Bioinformatics",
 ]
 
 classifiers = [
