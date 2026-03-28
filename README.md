@@ -199,7 +199,7 @@ scRBP mergeRegulons \
 # Single-cell mode
 scRBP ras \
     --mode      sc \
-    --matrix    PBMC_sketch_15K.feather \
+    --matrix    PBMC_sketch_50K.feather \
     --regulons  regulons_symbol.gmt \
     --out       ras_sc_output/ \
     --n_workers 8 \
@@ -208,7 +208,7 @@ scRBP ras \
 # Cell-type mode
 scRBP ras \
     --mode          ct \
-    --matrix        PBMC_sketch_15K.feather \
+    --matrix        PBMC_sketch_50K.feather \
     --regulons      regulons_symbol.gmt \
     --out           ras_ct_output/ \
     --celltypes-csv cell_to_celltype.csv \
