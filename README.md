@@ -367,7 +367,7 @@ For more details, please refer to [scRBP protocols](https://mayunlong89.github.i
 
 If you use scRBP in your research, please cite:
 
-> Ma Y. *et al.* Decoding disease-associated RNA-binding protein-mediated regulatory networks through polygenic enrichment across diverse cellular contexts. (2026)
+> Ma Y. *et al.* ***Decoding cell-specific RNA-binding protein regulatory networks across development and disease***. (2026)
 
 ---
 
