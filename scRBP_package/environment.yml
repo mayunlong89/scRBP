@@ -7,6 +7,9 @@ dependencies:
   - python=3.10
   - pip
 
+  # C++ runtime (needed on HPC nodes with older system libstdc++)
+  - libstdcxx-ng>=12.0
+
   # Core scientific stack
   - numpy>=1.23,<2.0
   - pandas>=1.5,<2.1

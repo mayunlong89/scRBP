@@ -19,8 +19,7 @@ The pipeline comprises ten steps:
   10. trs           – Trait Relevance Score (TRS) integrating RAS and RGS
 
 Reference:
-    Ma Y. et al. Decoding disease-associated RNA-binding protein-mediated regulatory
-    networks through polygenic enrichment across diverse cellular contexts. (2026)
+    Ma Y. et al. Decoding cell-specific RNA-binding protein regulatory networks across development and disease. (2026)
 """
 
 # ── Suppress anndata FutureWarnings BEFORE any import touches anndata ────
