@@ -379,7 +379,7 @@ chmod +x magma
 echo 'export PATH=~/tools/magma/magma_v1.10_static:$PATH' >> ~/.bashrc
 source ~/.bashrc
 ```
-For more detailed MAGMA usage, see [GWASTutorial](https://cloufield.github.io/GWASTutorial/09_Gene_based_analysis/) and download MAGMA from [CNCR](https://cncr.nl/research/magma/).
+For more detailed MAGMA usage, see [GWASTutorial](https://cloufield.github.io/GWASTutorial/09_Gene_based_analysis/).
 
 ---
 
