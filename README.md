@@ -39,7 +39,7 @@ cd scRBP/scRBP_package
 pip install -e .
 ```
 
-> **Requirements**: Python 3.9, 3.10, or 3.11. Python 3.12+ is not yet supported by `pyscenic`/`arboreto`.
+> **Requirements**: Python 3.9, 3.10, or 3.11. Python 3.12+ is not yet supported by `arboreto`.
 
 ### Install via conda (recommended for HPC / cluster)
 
