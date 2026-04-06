@@ -51,16 +51,6 @@ conda activate scrbp
 pip install -e .
 ```
 
-### Install MAGMA (required for Step 9 only)
-
-MAGMA is a standalone binary not available on PyPI. Download from [CNCR](https://cncr.nl/research/magma) and make it executable:
-
-```bash
-wget https://cncr.nl/research/magma/software/magma_v1.10_static_linux.zip
-unzip magma_v1.10_static_linux.zip -d ~/tools/magma/
-chmod +x ~/tools/magma/magma
-```
-
 ---
 
 ## How to run scRBP
@@ -355,12 +345,49 @@ magma \
 # Output: GWAS_gene_analysis.genes.raw (used as input to scRBP rgs)
 ```
 
+### Install MAGMA (required for Step 9 only)
+
+MAGMA is a standalone binary not available on PyPI. Download from [CNCR](https://cncr.nl/research/magma) and make it executable:
+
+```bash
+# Install MAGMA (v1.10, Linux static)
+
+# 1. Create installation directory
+mkdir -p ~/tools/magma
+cd ~/tools/magma
+
+# 2. Download MAGMA (note: must include /download)
+wget -O magma_v1.10_static_linux.zip \
+"https://vu.data.surf.nl/index.php/s/lxDgt2dNdNr6DYt/download"
+
+# 3. Unzip the package
+unzip magma_v1.10_static_linux.zip
+
+# 4. Check extracted files
+ls
+
+# 5. Enter the extracted directory (name may vary)
+cd magma*
+
+# 6. Make the binary executable
+chmod +x magma
+
+# 7. Verify installation
+./magma --version
+
+# 8. Optionally add MAGMA to PATH
+echo 'export PATH=~/tools/magma/magma_v1.10_static:$PATH' >> ~/.bashrc
+source ~/.bashrc
+```
 For more detailed MAGMA usage, see [GWASTutorial](https://cloufield.github.io/GWASTutorial/09_Gene_based_analysis/) and download MAGMA from [CNCR](https://cncr.nl/research/magma/).
 
 ---
 
 ## More information
 For more details, please refer to [scRBP protocols](https://mayunlong89.github.io/scRBP.github.io/), or [scRBP description](https://pypi.org/project/scRBP), or [scRBP.github.io](https://github.com/mayunlong89/scRBP.github.io).
+
+## scRBP motif collections
+Please refer to the [Gandallab resource](https://resources.gandallab.org/motif-collection.html), we provided 616 RBPs and their corresponding 20746 motifs with quality metrics in this [resource](https://resources.gandallab.org/motif-collection.html). 
 
 
 ## Citations
