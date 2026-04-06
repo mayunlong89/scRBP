@@ -38,7 +38,7 @@ git clone https://github.com/mayunlong89/scRBP.git
 cd scRBP/scRBP_package
 pip install -e .
 ```
-> If CXXABI_1.3.15 not found, try using conda's bundled libstdc++. export LD_PRELOAD=$CONDA_PREFIX/lib/libstdc++.so.6 scRBP --help
+> If `CXXABI_1.3.15 not found`, try using conda's bundled libstdc++. export LD_PRELOAD=$CONDA_PREFIX/lib/libstdc++.so.6 scRBP --help
 
 > **Requirements**: Python 3.9, 3.10, or 3.11. Python 3.12+ is not yet supported by `arboreto`.
 
