@@ -10,9 +10,8 @@
   </tr>
 </table>
 
-![pypi](https://img.shields.io/badge/pypi-0.1.3.4-green)
-![python](https://img.shields.io/badge/python-3.9--3.11-blue)
-![license](https://img.shields.io/badge/license-MIT-yellow)
+
+![pypi](https://img.shields.io/badge/pypi-0.1.3.7-green) ![python](https://img.shields.io/badge/python-3.9--3.11-blue) ![license](https://img.shields.io/badge/license-MIT-yellow)
 
 **scRBP (Single-cell RNA Binding Protein Regulon Inference)** is a command-line toolkit for comprehensive analysis of RNA-binding proteins (RBPs) in single-cell RNA-seq data. scRBP provides a systematic, scalable and integrative framework to infer RBP-mediated gene and isoform regulatory networks ("regulons") from single-cell transcriptomes and prioritize networks underlying complex genetic traits and disorders. scRBP is comprised of six main modules: (i) developing a comprehensive compendium of RBPs and their associated motif clusters from diverse public resources; (ii) systematic, motif-guided transcriptome-wide inference of RBP targets at both gene- and isoform-level resolution; (iii) construction of RBP-gene and/or RBP-isoform co-expression networks from short- or long-read single-cell transcriptomic data, respectively; (iv) defining high-fidelity regulons by integrating RBP-target interactions, and quantifying cell type-specific regulon activity scores (RAS); (v) integrating GWAS results to compute regulon-level genetic association scores (RGS); and (vi) constructing a unified trait-relevance score (TRS) by combining RAS and RGS for each regulon in a given cellular context, with statistical significance assessed using Monte Carlo (MC) sampling.
 
@@ -20,13 +19,13 @@
 
 ## What scRBP Does
 
-RBPs are key post-transcriptional regulators that control mRNA splicing, stability, and translation. scRBP enables you to:
+RBPs are key post-transcriptional regulators that control mRNA splicing, stability, and translation. scRBP enables to:
 
 - **Construct** which RBPs regulate which genes or isoforms in your single-cell data
 - **Prune** raw RBP–gene associations using motif-binding evidence to obtain high-confidence regulons
-- **Score** each cell or cell type for regulon activity score (RAS) using the AUCell algorithm
-- **Link** RBP regulons to human disease through GWAS genetic enrichment (RGS via MAGMA)
-- **Integrate** RAS and RGS into a unified Trait Relevance Score (TRS) that ranks disease-relevant RBPs
+- **Score** each cell or cell type for regulon activity score (RAS)
+- **Link** polygenic association signals to each regulon (RGS) through regulon-level regression analysis 
+- **Integrate** RAS and RGS into a unified Trait Relevance Score (TRS) that ranks trait-relevant RBP regulons
 
 ---
 
@@ -73,7 +72,7 @@ Raw single-cell data (.h5ad / .feather)
 
 ### Requirements
 
-- Python **3.9, 3.10, or 3.11** (Python 3.12+ not yet supported by `pyscenic`/`arboreto`)
+- Python **3.9, 3.10, or 3.11** (Python 3.12+ not yet supported by `arboreto`)
 - MAGMA binary (external, required only for Step 9 — `scRBP rgs`)
 
 ### Option 1 — Install from PyPI (recommended)
@@ -236,7 +235,7 @@ scRBP getGRN \
 ### Parameters — Core (all modes)
 
 | Parameter | Type | Default | Required | Description |
-|-----------|------|---------|----------|-------------|
+|-----------|------|:--------|----------|-------------|
 | `--matrix` | str | — | **Yes** | Expression matrix file. Formats: `.csv`, `.csv.gz`, `.feather`, `.loom`. Rows = features, columns = cells. |
 | `--rbp_list` | str | — | **Yes** | Plain-text file of RBP gene symbols (one per line). |
 | `--output` | str | — | **Yes** | Output prefix. Mode suffix appended automatically. |
@@ -246,6 +245,9 @@ scRBP getGRN \
 | `--correlation` | bool | `True` | No | Compute Spearman correlation and assign regulatory mode per edge. |
 | `--threshold` | float | 0.03 | No | Absolute Spearman correlation threshold; edges with `|r| ≤ threshold` are removed. |
 | `--seed` | int | 1234 | No | Random seed for the tree ensemble. Change across runs for consensus merging. |
+| --batch_size | int | 10 | No | Number of outer batches used during processing. Reduce this value when computational resources are constrained; in most cases, `5` is recommended. |
+
+
 
 ### Parameters — Isoform mode only
 
@@ -256,6 +258,8 @@ scRBP getGRN \
 | `--remove_self_targets` | bool | `True` | No | Remove edges where the target isoform belongs to the same gene as the RBP. |
 | `--min_target_cells_expressed` | int | 10 | No | Minimum number of cells with expression > 0 to keep a target isoform. |
 | `--min_target_mean_expr` | float | 0.01 | No | Minimum mean expression across all cells to keep a target isoform. |
+
+
 
 ### Output Files
 
@@ -279,17 +283,19 @@ for SEED in $(seq 1 30); do
       --output    grn_seed${SEED} \
       --mode      gene \
       --method    grnboost2 \
-      --n_workers 20 \
+      --n_workers 10 \
       --correlation True \
+      --batch_size 5 \
+      --threshold 0.03 \
       --seed      ${SEED}
 done
 # Output: grn_seed1_scRBP_gene_GRNs.tsv, grn_seed2_scRBP_gene_GRNs.tsv, ...
 ```
 
-**Isoform mode:**
+**Isoform mode (30 seeds):**
 
 ```bash
-for SEED in 1 2 3; do
+for SEED in $(seq 1 30); do
   scRBP getGRN \
       --matrix                     PBMC_isoform_sketch.feather \
       --rbp_list                   human_RBP_list.txt \
@@ -301,7 +307,9 @@ for SEED in 1 2 3; do
       --min_target_cells_expressed 10 \
       --min_target_mean_expr       0.01 \
       --method                     grnboost2 \
-      --n_workers                  20 \
+      --batch_size 5 \
+      --threshold 0.03 \
+      --n_workers                  10 \
       --seed                       ${SEED}
 done
 ```
@@ -555,11 +563,12 @@ scRBP mergeRegulons \
 
 ### Purpose
 
-Computes **Regulon Activity Scores (RAS)** using the **AUCell** algorithm — for each cell or cell type, AUCell scores how active each RBP regulon is based on whether its target genes are at the top of that cell's expression ranking. Optionally computes **Regulon Specificity Scores (RSS)** based on Jensen-Shannon divergence.
+Computes **Regulon Activity Scores (RAS)** using the **AUCell** algorithm (default) — for each cell or cell type, AUCell scores how active each RBP regulon is based on whether its target genes are at the top of that cell's expression ranking. To obtain robust cell type-level estimates of regulon activity, scRBP aggregates single-cell RAS profiles using an entropy-based Jensen-Shannon divergence. The defined **cell type-level RAS** offers an interpretable measure of cell type-specific activity for each regulon. 
 
 **Two modes are supported:**
+
 - **`--mode sc`**: RAS computed at single-cell resolution.
-- **`--mode ct`**: RAS aggregated to cell-type level; also computes RSS and requires `--celltypes-csv`.
+- **`--mode ct`**: RAS aggregated to cell-type level; requires `--celltypes-csv`  to provide annotated cell types.
 
 ### Usage
 
@@ -632,12 +641,13 @@ scRBP ras \
 
 ### Purpose
 
-Computes **Regulon Gene-Set (RGS) scores** by running **MAGMA gene-set analysis** on each RBP regulon using GWAS summary statistics. This step assesses whether the target genes of each RBP regulon are enriched for GWAS disease-associated genes.
+Computes **Regulon-level Genetic association score (RGS)** by running **MAGMA-based competitive gene-set analysis** on each RBP regulon using GWAS summary statistics. This step assesses whether the target genes of each RBP regulon are enriched for GWAS disease-associated genes.
 
 A key innovation is the automatic generation of **matched null regulons** — for each real regulon, `n-null` null gene sets are sampled from the genome, matched on four confounding dimensions: number of SNPs, number of parameters, mean gene expression, and percent detected. This controls for size and expression-level biases, enabling fair statistical comparison.
 
 **Two modes are supported:**
-- **`--mode sc`**: Per-regulon MAGMA analysis.
+
+- **`--mode sc`**: Per-cell regulon-level association analysis.
 - **`--mode ct`**: Cell-type-stratified analysis; requires precomputed expression stats from `ras --emit-expr-stats`.
 
 ### Usage
@@ -715,7 +725,7 @@ scRBP rgs \
 
 ### Purpose
 
-Integrates the **Regulon Activity Score (RAS)** and the **Regulon Gene-Set Score (RGS)** into a final **Trait Relevance Score (TRS)** for each RBP regulon across cells or cell types. The TRS formula balances the two signals while penalizing discordance:
+Integrates the **Regulon Activity Score (RAS)** and the **Regulon-level Genetic association Score (RGS)** into a final **Trait Relevance Score (TRS)** for each RBP regulon across cells or cell types. The TRS formula balances the two signals while penalizing discordance:
 
 ```
 TRS = norm(RAS) + norm(RGS) − λ × |norm(RAS) − norm(RGS)|
@@ -830,12 +840,12 @@ done
 # ── Step 3: Merge GRN runs ───────────────────────────────────
 scRBP getMerge_GRN \
     --pattern "grn/grn_seed*_scRBP_gene_GRNs.tsv" --output grn_consensus.tsv \
-    --n_present 15 --present_rate 0.5
+    --n_present 10 --present_rate 0.5
 
 # ── Step 4: Extract modules ──────────────────────────────────
 scRBP getModule \
     --input grn_consensus.tsv --output_merged modules.tsv \
-    --top_n_list "5,10,50" --target_top_n "50"
+    --top_n_list "5,10,50" --target_top_n "50" --percentile "0.75,0.90"
 
 # ── Step 5: Prune with motifs ────────────────────────────────
 scRBP getPrune \
@@ -927,7 +937,7 @@ Use `scRBP <command> --help` to see all parameters for any step.
 
 If you use scRBP in your research, please cite:
 
-> Ma Y. *et al.* *Decoding disease-associated RNA-binding protein-mediated regulatory networks through polygenic enrichment across diverse cellular contexts.* (2026)
+> Ma Y. *et al.* ***Decoding cell-specific RNA-binding protein regulatory networks across development and disease.*** (2026)
 
 ---
 

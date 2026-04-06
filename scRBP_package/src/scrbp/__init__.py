@@ -23,7 +23,21 @@ Reference:
     networks through polygenic enrichment across diverse cellular contexts. (2026)
 """
 
-__version__ = "0.1.3.4"
+# ── Suppress anndata FutureWarnings BEFORE any import touches anndata ────
+# pyscenic internally does ``from anndata import read_csv, ...`` which
+# triggers FutureWarning in anndata ≥ 0.10.  The filter must be installed
+# here (the first module Python loads for the scrbp package) so it takes
+# effect before scanpy / pyscenic pull in anndata.
+import warnings as _warnings
+_warnings.filterwarnings(
+    "ignore",
+    message=r"Importing read_\w+ from `anndata` is deprecated",
+    category=FutureWarning,
+)
+del _warnings
+# ─────────────────────────────────────────────────────────────────────────
+
+__version__ = "0.1.3.9"
 __author__ = "Yunlong Ma et al., University of Pennsylvania"
 __email__ = ""
 __description__ = "Single-cell RNA Binding Protein regulon inference"

@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "scRBP"
-version = "0.1.3.4"
+version = "0.1.3.9"
 description = "Single-cell RNA Binding Protein Regulon Inference"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.9"
 
 authors = [
-    { name = "Yunlong Ma & Micheal Gandal" },
+    { name = "Yunlong Ma & Michael Gandal" },
 ]
 
 keywords = [
