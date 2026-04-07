@@ -388,7 +388,7 @@ For more detailed MAGMA usage, see [GWASTutorial](https://cloufield.github.io/GW
 ---
 
 ## More information
-For more details, please refer to [scRBP protocols](https://mayunlong89.github.io/scRBP.github.io/), or [scRBP description](https://pypi.org/project/scRBP), or [scRBP.github.io](https://github.com/mayunlong89/scRBP.github.io).
+For more details, please refer to [scRBP protocols](https://mayunlong89.github.io/scRBP.github.io/), or [scRBP description](https://pypi.org/project/scRBP), [scRBP.github.io](https://github.com/mayunlong89/scRBP.github.io), or [scRBP reproduce](https://github.com/mayunlong89/scRBP_reproduce).
 
 ## scRBP motif collection
 Please refer to the [Gandallab resource](https://resources.gandallab.org/motif-collection.html), we provided 616 RBPs and their corresponding 20746 motifs with quality metrics in this [resource](https://resources.gandallab.org/motif-collection.html). 
