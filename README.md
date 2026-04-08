@@ -51,11 +51,12 @@ conda activate scrbp
 pip install -e .
 ```
 > If `CXXABI_1.3.15 not found`, try using conda's bundled libstdc++.
+> 
 > ```bash
 > export LD_PRELOAD=$CONDA_PREFIX/lib/libstdc++.so.6
-> ```
-
+> 
 > scRBP --help
+> ```
 
 
 ---
