@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "scRBP"
-version = "0.1.3.9"
+version = "0.1.3.11"
 description = "Single-cell RNA Binding Protein Regulon Inference"
 readme = "README.md"
 license = { file = "LICENSE" }

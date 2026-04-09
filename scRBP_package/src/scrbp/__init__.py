@@ -36,7 +36,7 @@ _warnings.filterwarnings(
 del _warnings
 # ─────────────────────────────────────────────────────────────────────────
 
-__version__ = "0.1.3.9"
+__version__ = "0.1.3.11"
 __author__ = "Yunlong Ma et al., University of Pennsylvania"
 __email__ = ""
 __description__ = "Single-cell RNA Binding Protein regulon inference"

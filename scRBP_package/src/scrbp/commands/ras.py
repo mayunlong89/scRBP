@@ -426,8 +426,12 @@ def register_subcommand(subparsers):
     p.add_argument("--rss-eps", type=float, default=1e-12, help="Epsilon for JSD logs.")
 
     # Expr-stats controls (always available)
-    p.add_argument("--emit-expr-stats", action="store_true", default=True,
+    # Default: ON.  Use --no-expr-stats to skip.
+    p.add_argument("--emit-expr-stats", action="store_true",
                    help="Emit <out>_expr_stats.tsv from the FULL input matrix (default: True).")
+    p.add_argument("--no-expr-stats", dest="emit_expr_stats", action="store_false",
+                   help="Do not emit expr-stats TSV.")
+    p.set_defaults(emit_expr_stats=True)
     p.add_argument("--expr-stats-out", default=None,
                    help="Custom path for expr-stats TSV. Default: <out>_expr_stats.tsv")
     p.set_defaults(func=main)

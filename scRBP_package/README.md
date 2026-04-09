@@ -588,26 +588,27 @@ scRBP ras \
 
 | Parameter | Type | Default | Required | Description |
 |-----------|------|---------|----------|-------------|
-| `--mode` | str | `ct` | No | Analysis mode. `sc` = single-cell AUCell scores; `ct` = cell-type-aggregated scores + RSS. |
+| `--mode` | str | `ct` | No | Analysis mode. `sc` = single-cell RAS scores; `ct` = cell-type-aggregated RAS scores (based on an entropy-based Jensen-Shannon divergence). |
 | `--matrix` | str | — | Cond. | Expression matrix file. Formats: `.csv`, `.csv.gz`, `.feather`, `.loom`. Rows = genes, columns = cells. Required unless `--aucell-in` is provided. |
 | `--regulons` | str | — | Cond. | Regulon file. Formats: `.gmt` / `.gmt.gz` (Symbol) or `.pkl` (pySCENIC). Required unless `--aucell-in` is provided. |
-| `--aucell-in` | str | — | No | Precomputed AUCell CSV (cells × regulons). If provided, skips AUCell computation. |
+| `--aucell-in` | str | — | No | Precomputed RAS CSV (cells × regulons). If provided, skips AUCell computation. |
 | `--out` | str | — | **Yes** | Output path prefix or directory. |
-| `--out_format` | str | `csv` | No | Output format for AUCell scores. Choices: `csv`, `loom`, `both`. |
+| `--out_format` | str | `csv` | No | Output format for RAS scores. Choices: `csv`, `loom`, `both`. |
 | `--n_workers` | int | 4 | No | Number of parallel workers for AUCell computation. |
 | `--celltypes-csv` | str | — | Cond. | CSV file with cell barcode and cell type columns. **Required when `--mode ct`.** |
 | `--cell-col` | str | auto | No | Column name for cell barcodes in `--celltypes-csv`. Auto-detected if not specified. |
 | `--ctype-col` | str | auto | No | Column name for cell-type labels in `--celltypes-csv`. Auto-detected if not specified. |
 | `--min_genes` | int | 1 | No | Drop regulons with fewer than this many genes in the expression matrix. |
-| `--emit-expr-stats` | flag | on | No | Compute and save per-gene expression statistics (`mean_expr`, `pct_detected`). Used as input to `rgs`. |
+| `--emit-expr-stats` | flag | on | No | Compute and save per-gene expression statistics (`mean_expr`, `pct_detected`). Enabled by default. Used as input to `rgs`. |
+| `--no-expr-stats` | flag | — | No | Disable expr-stats output. Mutually exclusive with `--emit-expr-stats`. |
 | `--expr-stats-out` | str | auto | No | Output path for expression statistics TSV. Auto-generated from `--out` if not specified. |
 
 ### Output Files
 
 | File | Description |
 |------|-------------|
-| `aucell_sc.csv` | AUCell scores — cells × regulons (`--mode sc`) |
-| `aucell_ct.csv` | AUCell scores — cell-types × regulons (`--mode ct`) |
+| `aucell_sc.csv` | RAS scores — cells × regulons (`--mode sc`) |
+| `aucell_ct.csv` | RAS scores — cell-types × regulons (`--mode ct`) |
 | `rss.tsv` | Regulon Specificity Scores per cell type (`--mode ct` only) |
 | `expr_stats.tsv` | Per-gene expression statistics: `mean_expr`, `pct_detected` |
 

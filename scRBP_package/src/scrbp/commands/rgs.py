@@ -288,6 +288,7 @@ def main(args):
     combined_gmt = None
     null_index_path = None
     temp_paths = []
+    short_to_full = {}   # ct mode: short ID -> full regulon name (internal, never saved)
 
     if args.mode == "sc":
         # sc: no need for NULL, no forced expr-stats
@@ -379,25 +380,44 @@ def main(args):
             bg["pct_detected"] = 0.0
 
         rng = np.random.default_rng(args.seed)
-        sets_entrez = {}
+        sets_entrez = {}        # full name -> gene list (for saving / indexing)
+        _sets_short  = {}       # short ID  -> gene list (for MAGMA only)
         index_rows = []
+        _sid = 0                # short-ID counter
 
         for rbp, ent_list in real_entrez.items():
             ent_list = list(dict.fromkeys(int(x) for x in ent_list))
-            sets_entrez[f"{rbp}__REAL"] = [str(e) for e in ent_list]
+            full_name = f"{rbp}__REAL"
+            genes_str = [str(e) for e in ent_list]
+            sets_entrez[full_name] = genes_str
+
+            # Assign a short ID that MAGMA cannot truncate (max 9 chars)
+            _sid += 1
+            sid = f"GS{_sid:07d}"
+            _sets_short[sid] = genes_str
+            short_to_full[sid] = full_name
 
             nulls = make_null_for_regulon_4d(
                 ent_list, bg, n_null=args.n_null, q=args.q_bins,
                 rng=rng, exclude_self=args.exclude_self
             )
             for i, nl in enumerate(nulls, 1):
-                name = f"{rbp}__NULL_{i:04d}"
-                sets_entrez[name] = [str(e) for e in nl]
-                index_rows.append((rbp, i, name, len(nl)))
+                full_name = f"{rbp}__NULL_{i:04d}"
+                genes_str = [str(e) for e in nl]
+                sets_entrez[full_name] = genes_str
+                index_rows.append((rbp, i, full_name, len(nl)))
 
+                _sid += 1
+                sid = f"GS{_sid:07d}"
+                _sets_short[sid] = genes_str
+                short_to_full[sid] = full_name
+
+        # Write SHORT-ID GMT for MAGMA (avoids fixed-width column truncation)
         combined_gmt = os.path.join(tmp_dir, "real_plus_nulls.entrez.gmt")
-        write_gmt(combined_gmt, sets_entrez)
+        write_gmt(combined_gmt, _sets_short)
         temp_paths.append(combined_gmt)
+        print(f"[SHORT-ID] Mapped {len(short_to_full)} gene sets to short IDs "
+              f"(GS0000001..GS{_sid:07d}) for MAGMA")
 
         # 保存 NULL 索引
         null_index_path = f"{args.out}.null_index.tsv"
@@ -406,11 +426,11 @@ def main(args):
         )
         print("Wrote:", null_index_path)
 
-        # ------- Save REAL+NULL GMT -------
+        # ------- Save REAL+NULL GMT (full names, not short IDs) -------
         # 1) Entrez GMT
         save_entrez_path = args.save_null_gmt if args.save_null_gmt \
             else f"{args.out}_REAL_PLUS_NULLS.entrez.gmt"
-        shutil.copyfile(combined_gmt, save_entrez_path)
+        write_gmt(save_entrez_path, sets_entrez)
         print(f"[SAVE] REAL+NULL Entrez GMT -> {save_entrez_path}")
 
         # 2) Symbol GMT (optional)
@@ -450,6 +470,13 @@ def main(args):
     # ---------- Parse .gsa.out ----------
     gsa_out = f"{args.out}.gsa.out"
     df = read_gsa_out(gsa_out, one_sided=True)
+
+    # ---- Restore full regulon names from short IDs (ct mode) ----
+    if short_to_full:
+        n_before = len(df)
+        n_mapped = df["Regulon"].isin(short_to_full).sum()
+        df["Regulon"] = df["Regulon"].map(short_to_full).fillna(df["Regulon"])
+        print(f"[SHORT-ID] Restored {n_mapped}/{n_before} regulon names from short IDs")
 
     if args.min_genes and "NGENES" in df.columns:
         before = len(df)
