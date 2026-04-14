@@ -165,7 +165,7 @@ scRBP getPrune \
     --nes_threshold      3.0 \
     --n_jobs             16
 ```
-> This step need to download [motif-based target gene/isoform ranking.feather](https://zenodo.org/records/19256061).
+> This step need to download [motif-based target gene/isoform ranking.feather](https://resources.gandallab.org/scRBP/).
 
 ### Step 6 — Export regulons to GMT format
 
