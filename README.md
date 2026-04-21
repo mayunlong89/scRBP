@@ -402,7 +402,7 @@ Please refer to the [Gandallab resource](https://resources.gandallab.org/scRBP/)
 
 If you use scRBP in your research, please cite:
 
-> Ma Y. *et al.* ***Decoding cell-specific RNA-binding protein regulatory networks across development and disease***. (2026)
+> Ma Y. *et al.* ***Single-cell maps of RNA-binding protein networks reveal post-transcriptional architecture across development and disease***. (2026)
 
 ---
 
