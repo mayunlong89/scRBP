@@ -1,0 +1,33 @@
+# scRBP — Python dependencies
+# Install with: pip install -r requirements.txt
+#
+# NOTE: For a reproducible environment, use the pinned versions below.
+# For flexibility, remove version pins.
+
+# ── Core scientific stack ─────────────────────────────────────
+numpy>=1.23,<2.0
+pandas>=1.5,<2.1
+scipy>=1.9
+scikit-learn>=1.1
+
+# ── Single-cell I/O ───────────────────────────────────────────
+anndata>=0.9
+scanpy>=1.9
+loompy>=3.0.7
+
+# ── Fast columnar I/O ─────────────────────────────────────────
+polars>=0.19
+pyarrow>=10.0
+
+# ── Cell downsampling ─────────────────────────────────────────
+geosketch>=1.2
+
+# ── GRN inference ─────────────────────────────────────────────
+arboreto>=0.1.6
+
+# ── Motif enrichment & AUCell ────────────────────────────────
+ctxcore>=0.2.0
+pyscenic>=0.12.1
+
+# ── Progress & utilities ─────────────────────────────────────
+tqdm>=4.64
